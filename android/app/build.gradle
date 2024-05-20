@@ -76,7 +76,7 @@ android {
 
     namespace "com.gizosdkreactnativesample"
     defaultConfig {
-        applicationId "com.gizosdkreactnativesample"
+        applicationId "de.artificient.gizo.sdk.sample"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -107,6 +107,7 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    implementation("com.github.artificient-ai:gizo-android-sdk-alpha:0.2.2")
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

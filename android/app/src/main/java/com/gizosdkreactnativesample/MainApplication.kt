@@ -10,6 +10,8 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
+import de.artificient.gizo.sdk.Gizo
+import de.artificient.gizo.sdk.setting.GizoAppOptions
 
 class MainApplication : Application(), ReactApplication {
 
@@ -39,5 +41,14 @@ class MainApplication : Application(), ReactApplication {
       // If you opted-in for the New Architecture, we load the native entry point for this app.
       load()
     }
+
+    Gizo.initialize(
+        this,
+        GizoAppOptions.Builder(license = "LICENSE_KEY")
+            .debug(true)
+            .folderName("GizoSample")
+            .build()
+    )
+
   }
 }
