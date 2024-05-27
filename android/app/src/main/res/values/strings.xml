@@ -1,3 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GizoSdkReactNativeSample</string>
+    <string name="gizo_access_token">gizo_access_token</string>
+    <string name="mapbox_access_token">mapbox_access_token</string>
+    <string name="app_name">Gizo Sample</string>
+    <string name="gizo_ttc_danger_message">Break now! Possible Accident.</string>
+    <string name="gizo_enable_gps">Enable GPS</string>
+    <string name="gizo_gps_required">Enabled GPS is required for Gizo</string>
+    <string name="gizo_enable">Enable</string>
+    <string name="gizo_dismiss">Dismiss</string>
+    <string name="gizo_activate_camera">Activate camera</string>
+    <string name="gizo_close">Close</string>
+    <string name="gizo_advanced_option">Advanced Option</string>
+    <string name="gizo_low_battery">Low Battery</string>
+    <string name="gizo_overheating">Overheating</string>
+    <string name="gizo_advanced_option_description">Activate your phone camera to access essential driving assistance features and trip recording.</string>
+    <string name="gizo_low_battery_description">AI functions and video recording were stopped due to battery low</string>
+    <string name="gizo_overheating_description">AI functions and video recording were stopped due to phone overheating</string>
 </resources>

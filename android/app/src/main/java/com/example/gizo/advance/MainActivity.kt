@@ -1,4 +1,4 @@
-package com.gizosdkreactnativesample
+package com.example.gizo.advance
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
