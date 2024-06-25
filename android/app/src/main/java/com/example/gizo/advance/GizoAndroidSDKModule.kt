@@ -7,6 +7,7 @@ import android.provider.Settings;
 import android.os.Process
 import com.example.gizo.advance.recording.presentation.camera.RecordingCameraActivity
 import com.example.gizo.advance.recording.presentation.nocamera.RecordingNoCameraActivity
+import com.example.gizo.advance.recording.presentation.service.RecordingBackgroundService
 import com.facebook.react.bridge.*
 import de.artificient.gizo.sdk.Gizo
 
@@ -47,12 +48,19 @@ class GizoAndroidSDKModule(context: ReactApplicationContext) : ReactContextBaseJ
     }
 
     @ReactMethod
+    fun startBackgroundService(){
+        val context: Context = reactApplicationContext
+        RecordingBackgroundService.startService(context)
+    }
+
+    @ReactMethod
     fun neededPermissions(promise: Promise){
 
         val writableArray = WritableNativeArray()
         for (item in Gizo.app.permissionRequired) {
             writableArray.pushString(item)
         }
+        writableArray.pushString("android.permission.POST_NOTIFICATIONS")
         promise.resolve(writableArray)
     }
 
