@@ -2,6 +2,7 @@ import * as GizoSdk from "@gizo-sdk/core";
 import React, { useEffect, useState } from "react";
 import { View, Text, Button, Platform } from "react-native";
 import { openSettings } from "react-native-permissions";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Timer from "./timer";
 import {
@@ -19,13 +20,14 @@ import {
   requestBatteryOptimization,
 } from "../helpers/permissions";
 
+
 export default function Dashboard() {
   const [responsePermission, setResponsePermission] = useState<any>({});
   const [loging, setLoging] = useState<boolean>(false);
   const [isRunning, setIsRunning] = useState<boolean>(false);
-  const userId = 0;
-  const clientId = "";
-  const clientSecret = "";
+  const [userId, setUserId] = useState<number>(0);
+  const clientId = "com.artificientsdk";
+  const clientSecret = "e63523316f2749959458573a029e0a1e";
 
   useEffect(() => {
     async function checkAllPermission() {
@@ -92,11 +94,30 @@ export default function Dashboard() {
 
     GizoSdk.setToken(clientId, clientSecret);
 
-    // const userId = await GizoSdk.createUser();
-    // if (userId != null) {
-    //   console.log(userId);
-    // }
+    try {
+        const key = 'user-id'
+        var userIdValue = await AsyncStorage.getItem(key);
+        if(userIdValue==null)
+        {
+          const userId = await GizoSdk.createUser();
+          if (userId != null) {
+            console.log(userId);
+            setUserId(userId);
+            await authenticateUser(userId)
+            await AsyncStorage.setItem(key, userId.toString());
+          }
+        }
+        else{
+          var userid = Number(userIdValue);
+          setUserId(userid);
+          await authenticateUser(userid)
+        }
+    } catch (e) {
+      // saving error
+    } 
+  };
 
+  const authenticateUser =async (userId:number)  => {
     try {
       // Instructions on setting a userId
       // https://artificient-ai.gitbook.io/gizo-react-native-sdk-documentation/sdk-documentation/usage/authentication-and-user-management
@@ -111,7 +132,7 @@ export default function Dashboard() {
         "Could not authenticate the user. Set a valid userId. For furthur information visit the GIZO SDK Documentation.",
       );
     }
-  };
+  }
 
   const startRecording = async () => {
     setIsRunning(true);
