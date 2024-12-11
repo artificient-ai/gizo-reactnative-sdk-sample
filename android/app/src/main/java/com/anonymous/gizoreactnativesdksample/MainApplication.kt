@@ -15,6 +15,7 @@ import com.facebook.soloader.SoLoader
 
 import expo.modules.ApplicationLifecycleDispatcher
 import expo.modules.ReactNativeHostWrapper
+import expo.modules.gizosdk.GizoSdkModule
 
 class MainApplication : Application(), ReactApplication {
 
@@ -48,6 +49,7 @@ class MainApplication : Application(), ReactApplication {
       load()
     }
     ApplicationLifecycleDispatcher.onApplicationCreate(this)
+    GizoSdkModule.initialize(context = this, license = "eyJpZCI6IjQzYjRkNDE3LTVmM2YtNDYzOC02ODRjLTA4ZGQxOTM5MGM4ZCIsImxpY2Vuc2UtdHlwZSI6MSwiZXhwaXJhdGlvbi1kYXRlIjoiMjAyNS0xMi0xMFQyMzo1OTo1OSIsInBhY2thZ2UtbmFtZSI6ImNvbS5hbm9ueW1vdXMuZ2l6by1yZWFjdG5hdGl2ZS1zZGstc2FtcGxlIiwic2lnbmF0dXJlIjoiY1p1TGxQVnI1UE5uOUdRaDY2dFhhVU9LVnVZUUxFN0F6SkhnOWY3Ynp1SG5KajlaWk5aWVAzT2RpSnhmSmg4TEJ2ZGR2OWhqWDBSR2tiZlQxVkh2Q0toSU1zRzBnUFZKaU4wNGZZcVJ4Y1U3dCtQRituR0JXWitpUys5Z3hzR2Z4TkIwWU8rams0ZTF1ai9DYUhvUHpqaDJ3WGlpUm5GTlZhVk1iV2gyN25uczF1UjZpNyt4cC9nS2xvTWFqdlhrWGREb1huTFRDSE50UWJNQ2FLYmQxRVZDRnlJbmNaUEU5dmp4TnRqRVZKRjR3OUlGT2ZzZzNHNVJFNGJENmhIc0RwdDhMSUtJUTM3NnpZK1J6SnhyK1lpcW9oTHo5OFNjY0NtSE5QRWxHcURBZWVpejJYbm1qc2hpbXo5UytzVmZoRmxIaC9FR1pBNDNDZWNQY01pZ3lnPT0ifQ==")
   }
 
   override fun onConfigurationChanged(newConfig: Configuration) {
