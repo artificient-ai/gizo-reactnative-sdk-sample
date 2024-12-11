@@ -1,0 +1,9 @@
+export default {
+  BASE_URL: "http://localhost:5000",
+  PERMISSION_UNAVAILABLE: "unavailable",
+  PERMISSION_DENIED: "denied",
+  PERMISSION_BLOCKED: "blocked",
+  PERMISSION_GRANTED: "granted",
+  STARTED: "STARTED",
+  ENABLED_AND_DETECTING: "ENABLED_AND_DETECTING",
+};
