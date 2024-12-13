@@ -16,10 +16,8 @@ import {
   permissionNotificationRequest,
   permissionText,
   requestUsageAccess,
-  requestAlarmScheduler,
   requestBatteryOptimization,
 } from "../helpers/permissions";
-
 
 export default function Dashboard() {
   const [responsePermission, setResponsePermission] = useState<any>({});
@@ -63,7 +61,7 @@ export default function Dashboard() {
     GizoSdk.onCompleteUploadTrip((event) => {
       console.log(`onCompleteUploadTrip ${event.tripId}`);
     });
-    
+
     init();
   }, []);
 
@@ -87,8 +85,6 @@ export default function Dashboard() {
   };
 
   const init = async () => {
-    console.log("init");
-    setIsRunning(true);
     GizoSdk.changeUploadSetting({
       isMobileDataEnabled: true,
       isRoamingDataEnabled: true,
@@ -98,36 +94,42 @@ export default function Dashboard() {
 
     GizoSdk.setToken(clientId, clientSecret);
 
-    try {
-        const key = 'user-id'
-        var userIdValue = await AsyncStorage.getItem(key);
-        if(userIdValue==null)
-        {
-          const userId = await GizoSdk.createUser();
-          if (userId != null) {
-            console.log(userId);
-            setUserId(userId);
-            await authenticateUser(userId)
-            await AsyncStorage.setItem(key, userId.toString());
-          }
-        }
-        else{
-          var userid = Number(userIdValue);
-          setUserId(userid);
-          await authenticateUser(userid)
-        }
-    } catch (e) {
-      // saving error
-    } 
-  };
+    // const userId = await GizoSdk.createUser();
+    // if (userId != null) {
+    //   console.log(userId);
+    // }
 
-  const authenticateUser =async (userId:number)  => {
+    GizoSdk.enableDetections();
+
     try {
+      const key = 'user-id'
+      var userIdValue = await AsyncStorage.getItem(key);
+      if(userIdValue==null)
+      {
+        const userId = await GizoSdk.createUser();
+        if (userId != null) {
+          console.log(userId);
+          setUserId(userId);
+          await authenticateUser(userId)
+          await AsyncStorage.setItem(key, userId.toString());
+        }
+      }
+      else{
+        var userid = Number(userIdValue);
+        setUserId(userid);
+        await authenticateUser(userid)
+      }
+  } catch (e) {
+    // saving error
+  } 
+};
+
+const authenticateUser =async (userId:number)  => {
+  try {
       // Instructions on setting a userId
       // https://artificient-ai.gitbook.io/gizo-react-native-sdk-documentation/sdk-documentation/usage/authentication-and-user-management
       const authenticated = await GizoSdk.setUserId(userId);
       if (authenticated) {
-        console.log(authenticated);
         setLoging(authenticated);
       }
     } catch {
@@ -135,7 +137,7 @@ export default function Dashboard() {
         "Could not authenticate the user. Set a valid userId. For furthur information visit the GIZO SDK Documentation.",
       );
     }
-  }
+  };
 
   const startRecording = async () => {
     setIsRunning(true);
@@ -171,14 +173,6 @@ export default function Dashboard() {
       {Platform.OS === "android" && (
         <>
           <Button onPress={requestUsageAccess} title="Usage Access Settings" />
-          {Platform.Version >= 31 && (
-            <>
-              <Button
-                onPress={requestAlarmScheduler}
-                title="Alarm Scheduler Settings"
-              />
-            </>
-          )}
           <Button
             onPress={requestBatteryOptimization}
             title="Battery Optimization Settings"

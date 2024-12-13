@@ -1,6 +1,7 @@
 import * as Application from "expo-application";
 import * as IntentLauncher from "expo-intent-launcher";
 import { Platform, PermissionsAndroid, NativeModules } from "react-native";
+
 import {
   checkLocationAccuracy,
   checkMultiple,
@@ -8,7 +9,9 @@ import {
   RESULTS,
   LocationAccuracy,
   request,
+  Permission
 } from "react-native-permissions";
+
 
 import constants from "./constants";
 const {
@@ -16,11 +19,8 @@ const {
     READ_PHONE_STATE,
     RECORD_AUDIO,
     ACTIVITY_RECOGNITION,
-    // CAMERA,
     WRITE_EXTERNAL_STORAGE,
     READ_EXTERNAL_STORAGE,
-    // HIGH_SAMPLING_RATE_SENSORS,
-    // POST_NOTIFICATIONS,
     ACCESS_FINE_LOCATION,
     ACCESS_COARSE_LOCATION,
     ACCESS_BACKGROUND_LOCATION,
@@ -35,14 +35,13 @@ interface PermissionProps {
   "android.permission.READ_PHONE_STATE": string;
   "android.permission.RECORD_AUDIO": string;
   "android.permission.ACTIVITY_RECOGNITION": string;
-  // "android.permission.CAMERA": string;
   "android.permission.WRITE_EXTERNAL_STORAGE": string;
   "android.permission.READ_EXTERNAL_STORAGE": string;
   "android.permission.ACCESS_FINE_LOCATION": string;
   "android.permission.ACCESS_COARSE_LOCATION": string;
   "android.permission.ACCESS_BACKGROUND_LOCATION": string;
 }
-// const version = DeviceInfo.getSystemVersion();
+
 export const checkPermissions = async () => {
   let results;
   if (Platform.OS === "ios") {
@@ -60,19 +59,24 @@ export const checkPermissions = async () => {
       locationAccuracy: locationAccuracy as LocationAccuracy,
     };
   } else {
-    const states = await checkMultiple([
+
+    const permissions: Permission[] = [
       READ_PHONE_STATE,
       RECORD_AUDIO,
       ACTIVITY_RECOGNITION,
-      // CAMERA,
-      WRITE_EXTERNAL_STORAGE,
-      READ_EXTERNAL_STORAGE,
-      // HIGH_SAMPLING_RATE_SENSORS,
-      // POST_NOTIFICATIONS,
       ACCESS_FINE_LOCATION,
       ACCESS_COARSE_LOCATION,
       ACCESS_BACKGROUND_LOCATION,
-    ]);
+    ];
+
+    if (Number(Platform.Version) < 29) {
+      permissions.push(
+        WRITE_EXTERNAL_STORAGE,
+        READ_EXTERNAL_STORAGE
+      );
+    }
+
+    const states = await checkMultiple(permissions);
 
     results = {
       ...states,
@@ -225,16 +229,6 @@ export const requestUsageAccess = async () => {
   );
 };
 
-export const requestAlarmScheduler = async () => {
-  const androidVersion = parseInt(Platform.Version as string, 10);
-
-  if (androidVersion >= 31) {
-    IntentLauncher.startActivityAsync(
-      "android.settings.REQUEST_SCHEDULE_EXACT_ALARM",
-    );
-  }
-};
-
 export const requestBatteryOptimization = async () => {
   const packageName = Application.applicationId;
 
@@ -246,7 +240,6 @@ export const requestBatteryOptimization = async () => {
   );
 };
 
-// permission grant status text
 export const permissionText = (
   locationStatus: string,
   motionStatus: string,
