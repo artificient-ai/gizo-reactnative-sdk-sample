@@ -48,10 +48,12 @@ export default function Dashboard() {
 
     GizoSdk.onStartRecordingListener(() => {
       console.log("Recording started");
+      setIsRunning(true);
     });
 
     GizoSdk.onStopRecordingListener(() => {
       console.log("Recording stoped");
+      setIsRunning(false);
     });
 
     GizoSdk.onStartUploadTrip((event) => {
@@ -85,6 +87,8 @@ export default function Dashboard() {
   };
 
   const init = async () => {
+    console.log("init");
+    setIsRunning(true);
     GizoSdk.changeUploadSetting({
       isMobileDataEnabled: true,
       isRoamingDataEnabled: true,
@@ -125,7 +129,6 @@ export default function Dashboard() {
       if (authenticated) {
         console.log(authenticated);
         setLoging(authenticated);
-        startRecording();
       }
     } catch {
       console.log(
@@ -151,7 +154,10 @@ export default function Dashboard() {
 
   return (
     <View>
-      <Timer isRunning={isRunning} />
+      <Timer 
+        isRunning={isRunning} 
+        startTrip={new Date()} 
+      />
       <View style={{ paddingBottom: 20 }} />
       <Text>UserId: {userId}</Text>
       <Text>Authenticated: {loging ? "true" : "false"} </Text>
