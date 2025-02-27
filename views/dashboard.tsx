@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Button, Platform } from "react-native";
 import { openSettings } from "react-native-permissions";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DeviceInfo from "react-native-device-info";
 
 import Timer from "./timer";
 import {
@@ -23,7 +24,9 @@ export default function Dashboard() {
   const [responsePermission, setResponsePermission] = useState<any>({});
   const [loging, setLoging] = useState<boolean>(false);
   const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [deviceId, setDeviceId] = useState<string>("");
   const [userId, setUserId] = useState<number>(0);
+
   const clientId = "";
   const clientSecret = "";
 
@@ -65,6 +68,16 @@ export default function Dashboard() {
     init();
   }, []);
 
+  useEffect(() => {
+    const fetchDeviceId = async () => {
+      const id = await DeviceInfo.getAndroidId();
+      setDeviceId(id);
+
+    };
+
+    fetchDeviceId();
+  }, []);
+
   const openPermissions = async () => {
     if (Platform.OS === "ios") {
       if (!getLocationStatus(responsePermission)) {
@@ -98,7 +111,6 @@ export default function Dashboard() {
     // if (userId != null) {
     //   console.log(userId);
     // }
-
     GizoSdk.enableDetections();
 
     try {
@@ -141,6 +153,7 @@ const authenticateUser =async (userId:number)  => {
 
   const startRecording = async () => {
     setIsRunning(true);
+
     GizoSdk.startRecording({
       mode: "NoCamera",
       stopRecordingSetting: {
@@ -182,6 +195,8 @@ const authenticateUser =async (userId:number)  => {
 
       <Button onPress={startRecording} title="StartRecording" />
       <Button onPress={stopRecording} title="StopRecording" />
+
+      <Text>Device ID: {deviceId}</Text>
     </View>
   );
 }

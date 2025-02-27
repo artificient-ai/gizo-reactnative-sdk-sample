@@ -5,11 +5,11 @@ PODS:
     - ExpoModulesCore
   - EXConstants (17.0.3):
     - ExpoModulesCore
-  - Expo (52.0.17):
+  - Expo (52.0.18):
     - ExpoModulesCore
   - ExpoAsset (11.0.1):
     - ExpoModulesCore
-  - ExpoFileSystem (18.0.4):
+  - ExpoFileSystem (18.0.5):
     - ExpoModulesCore
   - ExpoFont (13.0.1):
     - ExpoModulesCore
@@ -40,10 +40,10 @@ PODS:
     - Yoga
   - FBLazyVector (0.76.3)
   - fmt (9.1.0)
-  - GizoSdk (1.0.0):
+  - GizoSdk (1.0.1):
     - ExpoModulesCore
-    - GizoSDK (= 2.0.0)
-  - GizoSDK (2.0.0)
+    - GizoSDK (= 2.0.1)
+  - GizoSDK (2.0.1)
   - glog (0.3.5)
   - hermes-engine (0.76.3):
     - hermes-engine/Pre-built (= 0.76.3)
@@ -1834,16 +1834,16 @@ SPEC CHECKSUMS:
   DoubleConversion: f16ae600a246532c4020132d54af21d0ddb2a385
   EXApplication: e1ad9c950c98b2b134578092c948b10b403f3ea7
   EXConstants: dd2fe64c6cdb1383b694c309a63028a8e9f2be6d
-  Expo: a49e904c6f4edc8c3a5bde3fb75df5a64a53f555
+  Expo: dc7907584c3517c592315a59719180037703ff33
   ExpoAsset: 8138f2a9ec55ae1ad7c3871448379f7d97692d15
-  ExpoFileSystem: dc2679a2b5d4c465ca881129074da95faee943d5
+  ExpoFileSystem: 2161e16165279fb46e138d8ea8795c71cc6718be
   ExpoFont: 7522d869d84ee2ee8093ee997fef5b86f85d856b
   ExpoKeepAwake: 783e68647b969b210a786047c3daa7b753dcac1f
   ExpoModulesCore: f7db8b4faee7e5b94ad55f2bf781781a0bcf934d
   FBLazyVector: be7314029d6ec6b90f0f75ce1195b8130ed9ac4f
   fmt: 10c6e61f4be25dc963c36bd73fc7b1705fe975be
-  GizoSDK: 15fe3d53dbfb49b13e0977b494f4bd9944774f44
-  GizoSdk: 2a8489191d7da6c9396020a5095f61dd928181be
+  GizoSDK: fd94896a9a1aae12629f512aaa2205f781c14113
+  GizoSdk: a74eb15c2b6ee85df09ce01ab53363d90fde5165
   glog: 08b301085f15bcbb6ff8632a8ebaf239aae04e6a
   hermes-engine: 0555a84ea495e8e3b4bde71b597cd87fbb382888
   RCT-Folly: bf5c0376ffe4dd2cf438dcf86db385df9fdce648
